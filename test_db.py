@@ -1,14 +1,11 @@
-from app.core.security.hashing import PasswordService
+from app.core.security.jwt import JWTService
 
-password = "Noveau@123"
-
-hashed = PasswordService.hash_password(password)
-
-print(hashed)
-
-print(
-    PasswordService.verify_password(
-        password,
-        hashed,
-    )
+token = JWTService.create_access_token(
+    subject="ayush@example.com"
 )
+
+print(token)
+
+payload = JWTService.decode_access_token(token)
+
+print(payload)
