@@ -1,8 +1,14 @@
-from sqlalchemy import create_engine, text
-from app.core.config import settings
+from app.core.security.hashing import PasswordService
 
-engine = create_engine(settings.database_url)
+password = "Noveau@123"
 
-with engine.connect() as conn:
-    result = conn.execute(text("SELECT current_database();"))
-    print(result.scalar())
+hashed = PasswordService.hash_password(password)
+
+print(hashed)
+
+print(
+    PasswordService.verify_password(
+        password,
+        hashed,
+    )
+)
